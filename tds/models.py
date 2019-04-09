@@ -4,8 +4,8 @@ from django.utils import timezone
 
 class Layout(models.Model):
     title = models.CharField(max_length=32)
-    layout = models.TextField
-    enabled = models.BooleanField
+    layout = models.TextField(blank=True)
+    enabled = models.BooleanField('Enabled',default=True)
 
     def publish(self):
         self.save()
@@ -15,8 +15,20 @@ class Layout(models.Model):
 
 class Playlist(models.Model):
     title = models.CharField(max_length=32)
-    playlist = models.TextField
-    enabled = models.BooleanField
+    playlist = models.TextField(blank=True)
+    enabled = models.BooleanField('Enabled',default=True)
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+
+class Display(models.Model):
+    title = models.CharField(max_length=32)
+    playlist = models.TextField(blank=True)
+    enabled = models.BooleanField('Enabled',default=True)
 
     def publish(self):
         self.save()
@@ -32,7 +44,6 @@ class Station(models.Model):
     firstway_playlist=models.ForeignKey(Playlist, related_name='firstway_playlist', on_delete=models.CASCADE)
     secondway_playlist=models.ForeignKey(Playlist, related_name='secondway_playlist', on_delete=models.CASCADE)
     cashier_playlist=models.ForeignKey(Playlist, related_name='cashier_playlist', on_delete=models.CASCADE)
-    sort=models.AutoField
     enabled = models.BooleanField('Enabled',default=True)
 
     def publish(self):
