@@ -25,25 +25,8 @@ class Playlist(models.Model):
         return self.title
 
 
-class Display(models.Model):
-    title = models.CharField(max_length=32)
-    playlist = models.TextField(blank=True)
-    enabled = models.BooleanField('Enabled',default=True)
-
-    def publish(self):
-        self.save()
-
-    def __str__(self):
-        return self.title
-
 class Station(models.Model):
     title = models.CharField(max_length=128)
-    firstway_layout=models.ForeignKey(Layout, related_name='firstway_layout', on_delete=models.CASCADE)
-    secondway_layout=models.ForeignKey(Layout, related_name='secondway_layout', on_delete=models.CASCADE)
-    cashier_layout=models.ForeignKey(Layout, related_name='cashier_layout', on_delete=models.CASCADE)
-    firstway_playlist=models.ForeignKey(Playlist, related_name='firstway_playlist', on_delete=models.CASCADE)
-    secondway_playlist=models.ForeignKey(Playlist, related_name='secondway_playlist', on_delete=models.CASCADE)
-    cashier_playlist=models.ForeignKey(Playlist, related_name='cashier_playlist', on_delete=models.CASCADE)
     enabled = models.BooleanField('Enabled',default=True)
 
     def publish(self):
@@ -51,3 +34,42 @@ class Station(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Display(models.Model):
+    title = models.CharField(max_length=32)
+    layout = models.ForeignKey(Layout, related_name='dlayout', on_delete=models.CASCADE)
+    playlist = models.ForeignKey(Playlist, related_name='dplaylist', on_delete=models.CASCADE)
+    station = models.ForeignKey(Station, related_name='dstation', on_delete=models.CASCADE)
+    enabled = models.BooleanField('Enabled',default=True)
+    
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+class Way(models.Model):
+    title = models.CharField(max_length=128)
+    station = models.ManyToManyField(Station)
+    enabled = models.BooleanField('Enabled',default=True)
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+
+class Sched(models.Model):
+    datetime = models.DateTimeField()
+    way = models.ForeignKey(Way, on_delete=models.CASCADE)
+    station = models.ForeignKey(Station, on_delete=models.CASCADE)
+    enabled = models.BooleanField('Enabled',default=True)
+
+    def publish(self):
+        self.save()
+
+    def __str__(self):
+        return self.datetime
+

@@ -9,6 +9,7 @@ pylint = "*"
 [packages]
 django = "*"
 pylint-django = "*"
+django-mptt = "*"
 
 [requires]
 python_version = "3.7"
