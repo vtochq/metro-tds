@@ -1,0 +1,25 @@
+    <div>
+        <h1>{{ station.title }}</h1>
+        <div>Дисплеи:
+            <ul>
+                <li>Первый путь
+                    <ul>
+                        <li>{{ station.firstway_layout }}</li>
+                        <li>{{ station.firstway_playlist }}</li>
+                    </ul>
+                </li>
+                <li>Второй путь
+                        <ul>
+                            <li>{{ station.secondway_layout }}</li>
+                            <li>{{ station.secondway_playlist }}</li>
+                        </ul>
+                </li>
+                <li>Касса
+                        <ul>
+                            <li>{{ station.cashier_layout }}</li>
+                            <li>{{ station.cashier_playlist }}</li>
+                        </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
