@@ -28,7 +28,7 @@ class Playlist(models.Model):
 class Station(models.Model):
     title = models.CharField(max_length=128)
     enabled = models.BooleanField('Enabled',default=True)
-
+    
     def publish(self):
         self.save()
 
@@ -40,7 +40,7 @@ class Display(models.Model):
     title = models.CharField(max_length=32)
     layout = models.ForeignKey(Layout, related_name='dlayout', on_delete=models.CASCADE)
     playlist = models.ForeignKey(Playlist, related_name='dplaylist', on_delete=models.CASCADE)
-    station = models.ForeignKey(Station, related_name='dstation', on_delete=models.CASCADE)
+    station = models.ForeignKey(Station, related_name='station', on_delete=models.CASCADE)
     enabled = models.BooleanField('Enabled',default=True)
     
     def publish(self):
@@ -62,14 +62,14 @@ class Way(models.Model):
 
 
 class Sched(models.Model):
-    datetime = models.DateTimeField()
-    way = models.ForeignKey(Way, on_delete=models.CASCADE)
+    time = models.TimeField(null=True)
+    holiday = models.BooleanField('Holiday',default=False)
     station = models.ForeignKey(Station, on_delete=models.CASCADE)
+    way = models.ForeignKey(Way, on_delete=models.CASCADE)
     enabled = models.BooleanField('Enabled',default=True)
 
     def publish(self):
         self.save()
 
     def __str__(self):
-        return self.datetime
-
+        return self.time.strftime("%H:%M:%S")

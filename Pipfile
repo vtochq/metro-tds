@@ -10,6 +10,12 @@ pylint = "*"
 django = "*"
 pylint-django = "*"
 django-mptt = "*"
+django-admin-list-filter-dropdown = "*"
+djangorestframework = "*"
+django-admin-tools = "*"
+feedparser = "*"
+update = "*"
+django-controlcenter = "*"
 
 [requires]
 python_version = "3.7"

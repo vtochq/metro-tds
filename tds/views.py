@@ -1,7 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Station
+from .models import *
 from django.http import JsonResponse
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import displaySerializer
 
 # Create your views here.
 
@@ -25,3 +28,12 @@ def display(request, pk, disp):
     #template = Engine().from_string(layout)
     return JsonResponse(data)
     #return render(request, 'tds/display.html', {'layout': layout})
+
+class Get_display_List(APIView):
+    def get(self, request):
+        display = Display.objects.all()
+        serialized = displaySerializer(display, many=True)
+        return Response(serialized.data)
+    
+def homepage(request):
+    return render(request, 'index.html')

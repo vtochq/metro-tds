@@ -31,6 +31,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    #'admin_tools',
+    #'admin_tools.theming',
+    #'admin_tools.menu',
+    #'admin_tools.dashboard',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tds',
-    'mptt',
+    #'mptt',
+    #'django_admin_listfilter_dropdown',
+    'rest_framework',
+    'controlcenter',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +72,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+#        'loaders': [
+#            'admin_tools.template_loaders.Loader',
+#            'django.template.loaders.filesystem.Loader',
+#            'django.template.loaders.app_directories.Loader',
+#            ],
         },
     },
 ]
@@ -120,3 +132,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CONTROLCENTER_DASHBOARDS = (
+    ('mydash', 'metro.dashboard.MyDashboard'),
+)
